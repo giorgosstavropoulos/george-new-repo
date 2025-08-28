@@ -1,0 +1,14 @@
+{
+  "name": "create-bucket-server",
+  "version": "1.0.0",
+  "description": "Helper server to create Supabase storage bucket",
+  "main": "create-bucket-server.js",
+  "scripts": {
+    "start": "node create-bucket-server.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "node-fetch": "^2.6.7"
+  }
+}
