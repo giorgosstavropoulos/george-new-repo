@@ -68,10 +68,18 @@ function getEventDescription(event) {
   }
 }
 
-function EventsGrid() {
+function EventsGrid({ 
+  showDeleteConfirm, 
+  setShowDeleteConfirm, 
+  deleteLoading, 
+  setDeleteLoading, 
+  handleDeleteEvent, 
+  confirmDelete,
+  selectedEvent,
+  setSelectedEvent 
+}) {
   const [events, setEvents] = useState([]);
   const [visibleCount, setVisibleCount] = useState(6);
-  const [selectedEvent, setSelectedEvent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -212,6 +220,7 @@ function EventsGrid() {
 
 function App() {
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
   const [createLoading, setCreateLoading] = useState(false);
   const [createError, setCreateError] = useState(null);
   const [createSuccess, setCreateSuccess] = useState(null);
@@ -388,7 +397,16 @@ function App() {
   {/* small debug banner removed to avoid overlaying interactive elements */}
       <Navbar onOpenCreate={() => setShowCreateModal(true)} />
       <Hero />
-      <EventsGrid />
+      <EventsGrid 
+        showDeleteConfirm={showDeleteConfirm}
+        setShowDeleteConfirm={setShowDeleteConfirm}
+        deleteLoading={deleteLoading}
+        setDeleteLoading={setDeleteLoading}
+        handleDeleteEvent={handleDeleteEvent}
+        confirmDelete={confirmDelete}
+        selectedEvent={selectedEvent}
+        setSelectedEvent={setSelectedEvent}
+      />
       {showCreateModal && (
         <div className="modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) setShowCreateModal(false); }}>
           <div className="modal modal-lg neon-border" onClick={e => e.stopPropagation()}>
