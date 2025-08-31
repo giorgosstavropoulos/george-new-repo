@@ -333,6 +333,19 @@
   -webkit-appearance: auto;
 }
 
+/* Fix date/time picker visibility */
+.form-input[type="date"],
+.form-input[type="time"] {
+  color: white !important;
+  background: #232336 !important;
+}
+
+.form-input[type="date"]::-webkit-calendar-picker-indicator,
+.form-input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
+
 @media (max-width: 600px) {
   .navbar {
     flex-direction: column;
