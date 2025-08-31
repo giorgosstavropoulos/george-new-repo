@@ -175,7 +175,34 @@ function EventsGrid() {
               <h3>About this event</h3>
               <p>{getEventDescription(selectedEvent)}</p>
             </div>
-            <button className="btn neon" onClick={handleCloseModal}>Close</button>
+            <div className="modal-actions">
+              <div className="modal-actions-left">
+                <button className="btn btn-edit" onClick={() => handleEditEvent(selectedEvent)}>Edit</button>
+                <button className="btn btn-delete" onClick={() => confirmDelete(selectedEvent)}>Delete</button>
+              </div>
+              <button className="btn neon" onClick={handleCloseModal}>Close</button>
+            </div>
+          </div>
+        </div>
+      )}
+      {showDeleteConfirm && (
+        <div className="modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) setShowDeleteConfirm(false); }}>
+          <div className="modal modal-confirm" onClick={e => e.stopPropagation()}>
+            <h3 className="confirm-title">Delete Event</h3>
+            <p className="confirm-message">
+              Are you sure you want to delete "<strong>{showDeleteConfirm.artist}</strong>" at {showDeleteConfirm.venue}?
+              <br />This action cannot be undone.
+            </p>
+            <div className="confirm-actions">
+              <button className="btn" onClick={() => setShowDeleteConfirm(false)}>Cancel</button>
+              <button 
+                className="btn btn-delete" 
+                onClick={() => handleDeleteEvent(showDeleteConfirm)}
+                disabled={deleteLoading}
+              >
+                {deleteLoading ? 'Deleting...' : 'Delete'}
+              </button>
+            </div>
           </div>
         </div>
       )}
@@ -188,6 +215,8 @@ function App() {
   const [createLoading, setCreateLoading] = useState(false);
   const [createError, setCreateError] = useState(null);
   const [createSuccess, setCreateSuccess] = useState(null);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
 
   // Supabase config (reuse from EventsGrid)
   const supabaseUrl = 'https://bjvptriklwrmcritiqcz.supabase.co';
@@ -203,6 +232,37 @@ function App() {
   const [dateValue, setDateValue] = useState('');
   const [timeValue, setTimeValue] = useState('');
   const [imagePreview, setImagePreview] = useState(null);
+
+  const handleEditEvent = (event) => {
+    // TODO: Implement edit functionality
+    console.log('Edit event:', event);
+    alert('Edit functionality coming soon!');
+  };
+
+  const handleDeleteEvent = async (event) => {
+    setDeleteLoading(true);
+    try {
+      const { error } = await supabase.from('Events').delete().eq('id', event.id);
+      if (error) {
+        console.error('Delete error:', error);
+        alert('Failed to delete event: ' + error.message);
+      } else {
+        alert('Event deleted successfully!');
+        setSelectedEvent(null);
+        setShowDeleteConfirm(false);
+        // Refresh the page to show updated events list
+        window.location.reload();
+      }
+    } catch (err) {
+      console.error('Delete error:', err);
+      alert('Failed to delete event');
+    }
+    setDeleteLoading(false);
+  };
+
+  const confirmDelete = (event) => {
+    setShowDeleteConfirm(event);
+  };
 
   async function handleCreateEvent(e) {
     e.preventDefault();
