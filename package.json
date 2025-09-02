@@ -5,15 +5,15 @@
   "type": "module",
   "dependencies": {
     "@supabase/supabase-js": "^2.56.0",
-  "pg": "^8.11.0",
+    "pg": "^8.11.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "web-vitals": "^3.1.0"
-  ,
-  "prop-types": "^15.8.1"
+    "web-vitals": "^3.1.0",
+    "prop-types": "^15.8.1",
+    "express": "^4.18.2"
   },
   "overrides": {
     "@svgr/webpack": "^8.0.1",
@@ -21,13 +21,14 @@
     "postcss": "^8.4.31"
   },
   "scripts": {
-    "dev": "BROWSER=none WDS_SOCKET_PORT=0 vite --port 3000",
-    "start": "BROWSER=none WDS_SOCKET_PORT=0 vite --port 3000",
-    "build": "vite build",
+  "dev": "BROWSER=none WDS_SOCKET_PORT=0 vite --port 3000",
+  "start": "node server.js",
+  "build": "vite build",
   "preview": "vite preview",
   "backfill:preview": "node scripts/backfill_creator_id.cjs",
   "backfill:apply": "node scripts/backfill_creator_id.cjs --apply",
-    "test": "vitest"
+  "test": "vitest",
+  "heroku-postbuild": "npm run build"
   },
   "eslintConfig": {
     "extends": [
