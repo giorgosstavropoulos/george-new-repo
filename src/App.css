@@ -70,9 +70,9 @@
 .gradient-text {
   background: linear-gradient(90deg, #00ffe7 0%, #a855f7 100%);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-fill-color: transparent;
+  -webkit-text-fill-color: transparent;
+  color: transparent; /* fallback for non‑WebKit browsers */
 }
 .neon-input:focus {
   box-shadow: 0 0 0 2.5px #00ffe7;
@@ -364,6 +364,37 @@
 }
 
 .btn-delete:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Attend / Leave button variants */
+.btn-attend-join {
+  background: #10b981; /* emerald green */
+  color: #fff;
+  border: 2px solid #10b981;
+  box-shadow: 0 0 8px #10b981aa;
+}
+.btn-attend-join:hover {
+  background: #059669;
+  border-color: #059669;
+  box-shadow: 0 0 12px #10b981cc;
+}
+
+.btn-attend-leave {
+  background: #ef4444; /* red */
+  color: #fff;
+  border: 2px solid #ef4444;
+  box-shadow: 0 0 8px #ef4444aa;
+}
+.btn-attend-leave:hover {
+  background: #dc2626;
+  border-color: #dc2626;
+  box-shadow: 0 0 12px #ef4444cc;
+}
+
+.btn-attend-join:disabled,
+.btn-attend-leave:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
